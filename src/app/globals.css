@@ -49,18 +49,27 @@ body {
 /* Contenido centrado con márgenes */
 .content-wrapper {
   width: 100%;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 @media (min-width: 640px) {
   .content-wrapper {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }
 
-@media (min-width: 1024px) {
+/* Tablet: márgenes reducidos */
+@media (min-width: 1024px) and (max-width: 1599px) {
+  .content-wrapper {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+/* Desktop grande (1600px+): mantener diseño original */
+@media (min-width: 1600px) {
   .content-wrapper {
     padding-left: 200px;
     padding-right: 200px;

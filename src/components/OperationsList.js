@@ -8,7 +8,7 @@ export function OperationsList({
   onSelect,
 }) {
   return (
-    <aside className="w-[30%] min-w-[280px] max-w-[400px] border border-zinc-900 bg-zinc-50 overflow-y-auto">
+    <aside className="h-full border-0 md:border border-zinc-900 lg:border-b bg-zinc-50 overflow-y-auto">
       <div className="py-2">
         {loading && (
           <div className="px-6 py-4 text-sm text-zinc-400">

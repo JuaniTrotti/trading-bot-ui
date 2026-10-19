@@ -34,20 +34,22 @@ export default function Home() {
 
   return (
     <div className="h-screen flex flex-col bg-zinc-50">
-      <main className="flex-1 overflow-hidden py-10">
+      <main className="flex-1 overflow-hidden py-4 md:py-6 lg:py-10">
         <div className="content-wrapper h-full">
-          <div className="content-inner h-[calc(100vh-80px)] flex gap-0">
-            {/* Sidebar */}
-            <OperationsList
-              operations={operations}
-              selectedId={selectedId}
-              loading={loading}
-              error={error}
-              onSelect={setSelectedId}
-            />
+          <div className="content-inner h-full md:h-[calc(100vh-80px)] flex flex-col md:flex-row gap-0">
+            {/* Sidebar - Operations List */}
+            <div className="h-[35vh] md:h-full lg:h-full md:w-[30%] md:min-w-[280px] md:max-w-[400px] md:shrink-0 overflow-y-auto md:overflow-hidden border-b border-zinc-900 md:border-0">
+              <OperationsList
+                operations={operations}
+                selectedId={selectedId}
+                loading={loading}
+                error={error}
+                onSelect={setSelectedId}
+              />
+            </div>
 
-            {/* Detail */}
-            <section className="flex-1 border border-zinc-900 border-l-0 bg-zinc-50 overflow-hidden">
+            {/* Detail Panel */}
+            <section className="flex-1 border-0 md:border border-zinc-900 bg-zinc-50 overflow-hidden">
               <DetailPanel key={selectedId} operation={selectedOperation} />
             </section>
           </div>
