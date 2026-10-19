@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bot Operations Dashboard
+
+Dashboard para visualizar las operaciones y decisiones de un trading bot.
+
+## Descripción
+
+Esta aplicación muestra el historial de operaciones de un bot de trading, incluyendo:
+- Lista de todas las posiciones (trades) ejecutadas
+- Detalle de cada operación: símbolo, precios de entrada/salida, PnL, duración
+- Decisiones de compra/venta con sus preguntas y scores de confianza
+- Animaciones para visualizar el progreso de las decisiones
+
+## Estructura del Proyecto
+
+```
+src/
+├── app/
+│   ├── page.js           # Página principal
+│   └── layout.js         # Layout raíz
+├── components/
+│   ├── ActionBadge.js    # Badge BUY/SELL
+│   ├── DetailPanel.js    # Panel de detalle de operación
+│   ├── OperationItem.js  # Item individual de operación
+│   ├── OperationsList.js # Sidebar con lista de operaciones
+│   ├── ScoreItem.js      # Pregunta con scores animados
+│   └── Summary.js        # Resumen de stats
+├── hooks/
+│   └── useReducedMotion.js
+└── lib/
+    ├── api.js            # Fetch a la API
+    └── utils.js          # Helpers: mapTradeToOperation, formatDuration
+```
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir [http://localhost:3000](http://localhost:3000) en el navegador.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## API
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+La aplicación consume datos de:
+```
+https://jtrotti.com/api/trading-bot-service/testnet/positions/history
+```
 
-## Learn More
+El endpoint devuelve un array de `trades` con la siguiente estructura:
+- `_id`: ID de la operación
+- `symbol`: Símbolo trading (ej: BTCUSDT)
+- `side`: BUY o SELL
+- `entryPrice` / `exitPrice`: Precios de entrada y salida
+- `pnlPct`: Porcentaje de ganancia/pérdida
+- `openedAt` / `closedAt`: Timestamps
+- `buyTrace` / `sellTrace`: Trace de decisiones con questions y answers
 
-To learn more about Next.js, take a look at the following resources:
+## Animaciones
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Las animaciones se realizan con GSAP:
+- Header del detail panel: fade-in con stagger
+- Score items: fade-in + slide-up con delay escalonado
+- Barras de score: animación de ancho progresivo
